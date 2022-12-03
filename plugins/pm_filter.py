@@ -41,7 +41,7 @@ async def give_filter(client, message):
 async def next_page(bot, query):
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
+        return await query.answer("Don't Click On Others Request 🤨", show_alert=True)
     try:
         offset = int(offset)
     except:
@@ -120,7 +120,7 @@ async def next_page(bot, query):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
+        return await query.answer("ಯಾರ್ ನೀ", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
     movies = SPELL_CHECK.get(query.message.reply_to_message.id)
@@ -135,7 +135,7 @@ async def advantage_spoll_choker(bot, query):
             k = (movie, files, offset, total_results)
             await auto_filter(bot, query, k)
         else:
-            k = await query.message.edit('😒 currently unavailable ! we are really sorry for inconvenience !\n Have patience ! our great admins will upload it as soon as possible !')
+            k = await query.message.edit('This Movie Not Found In DataBase')
             await asyncio.sleep(10)
             await k.delete()
 
@@ -157,20 +157,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     title = chat.title
                 except:
                     await query.message.edit_text("Make sure I'm present in your group!!", quote=True)
-                    return await query.answer('♥️ Love @LazyDeveloper ♥️')
+                    return await query.answer('Piracy Is Crime')
             else:
                 await query.message.edit_text(
                     "I'm not connected to any groups!\nCheck /connections or connect to any groups",
                     quote=True
                 )
-                return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+                return await query.answer('Piracy Is Crime')
 
         elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             grp_id = query.message.chat.id
             title = query.message.chat.title
 
         else:
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            return await query.answer('Piracy Is Crime')
 
         st = await client.get_chat_member(grp_id, userid)
         if (st.status == enums.ChatMemberStatus.OWNER) or (str(userid) in ADMINS):
@@ -188,14 +188,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
         elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             grp_id = query.message.chat.id
             st = await client.get_chat_member(grp_id, userid)
-            if (st.status == enums.ChatMemberStatus.OWNER) or (str(userid) in ADMINS):
+            if (st.status == "creator") or (str(userid) in ADMINS):
                 await query.message.delete()
                 try:
                     await query.message.reply_to_message.delete()
                 except:
                     pass
             else:
-                await query.answer("That's not for you sona!", show_alert=True)
+                await query.answer("That's not for you!!", show_alert=True)
     elif "groupcb" in query.data:
         await query.answer()
 
@@ -224,7 +224,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=keyboard,
             parse_mode=enums.ParseMode.MARKDOWN
         )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('Piracy Is Crime')
     elif "connectcb" in query.data:
         await query.answer()
 
@@ -245,7 +245,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             )
         else:
             await query.message.edit_text('Some error occurred!!', parse_mode=enums.ParseMode.MARKDOWN)
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('Piracy Is Crime')
     elif "disconnect" in query.data:
         await query.answer()
 
@@ -261,14 +261,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if mkinact:
             await query.message.edit_text(
                 f"Disconnected from **{title}**",
-                parse_mode=enums.ParseMode.MARKDOWN
+                parse_mode="md"
             )
         else:
             await query.message.edit_text(
                 f"Some error occurred!!",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('Piracy Is Crime')
     elif "deletecb" in query.data:
         await query.answer()
 
@@ -286,7 +286,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 f"Some error occurred!!",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('Piracy Is Crime')
     elif query.data == "backcb":
         await query.answer()
 
@@ -297,7 +297,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.message.edit_text(
                 "There are no active connections!! Connect to some groups first.",
             )
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            return await query.answer('Piracy Is Crime')
         buttons = []
         for groupid in groupids:
             try:
@@ -373,7 +373,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
     elif query.data.startswith("checksub"):
         if AUTH_CHANNEL and not await is_subscribed(client, query):
-            await query.answer("Mere saamne jyada smart nhi banne ka sona 😒", show_alert=True)
+            await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒", show_alert=True)
             return
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
@@ -404,13 +404,18 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer()
     elif query.data == "start":
         buttons = [[
-            InlineKeyboardButton('➕↖️ Add Me To Your Groups ↗️➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-        ], [
-            InlineKeyboardButton('🧞‍♀️ Search 🧐', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('🔔 Updates 🤖', url='https://t.me/LazyDeveloper')
-        ], [
-            InlineKeyboardButton('🙆🏻 Help 🦾', callback_data='help'),
-            InlineKeyboardButton('♥️ About ♥️', callback_data='about')
+            InlineKeyboardButton('➕ Add Me To Your Groups ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            ],[
+            InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('🕵 Go Inline', switch_inline_query='')
+            ],[
+            InlineKeyboardButton('⭕ Updates ⭕', url='https://t.me/Knmlpro2update'),
+            InlineKeyboardButton('⭕ Support ⭕', url='https://t.me/Knmlpro2support_bot')
+            ],[
+            InlineKeyboardButton('🆘 Help', callback_data='help'),
+            InlineKeyboardButton('👥 About', callback_data='about')
+            ],[
+            InlineKeyboardButton('🔐 Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -418,17 +423,18 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        await query.answer('Piracy Is Crime')
     elif query.data == "help":
         buttons = [[
-            InlineKeyboardButton('Manual Filter', callback_data='manuelfilter'),
-            InlineKeyboardButton('Auto Filter', callback_data='autofilter')
+            InlineKeyboardButton('Mannual Filter', callback_data='manuelfilter'),
+            InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
         ], [
-            InlineKeyboardButton('Connection', callback_data='coct'),
-            InlineKeyboardButton('Extra Mods', callback_data='extra')
+            InlineKeyboardButton('Connections', callback_data='coct'),
+            InlineKeyboardButton('Extra mods', callback_data='extra')
         ], [
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🦠 Status', callback_data='stats')
+            InlineKeyboardButton('Status 〽️', callback_data='stats'),
+            InlineKeyboardButton('𝖧𝗈𝗆𝖾 🏡', callback_data='start'),
+            
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -438,10 +444,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "about":
         buttons = [[
-            InlineKeyboardButton('🔔 Updates 🤖', url='https://t.me/LazyDeveloper'),
-            InlineKeyboardButton('♥️ Source', callback_data='source')
+            InlineKeyboardButton('⭕ Updates', url='https://t.me/Knmlpro2'),
+            InlineKeyboardButton('🆘 Source', callback_data='')
         ], [
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('🏛️ Home', callback_data='start'),
             InlineKeyboardButton('🔐 Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -462,7 +468,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "manuelfilter":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
             InlineKeyboardButton('⏹️ Buttons', callback_data='button')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -473,7 +479,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "button":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='manuelfilter')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='manuelfilter')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -483,7 +489,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "autofilter":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -493,7 +499,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "coct":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -501,10 +507,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
+    elif query.data == "klmo":
+        buttons = [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=script.FS_TXT,
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML
+        )
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
-            InlineKeyboardButton('👑 Admin', callback_data='admin')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -514,7 +529,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "admin":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='extra')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -524,7 +539,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
             InlineKeyboardButton('♻️', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -544,7 +559,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
             InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('refresh', callback_data='rfrsh')
+            InlineKeyboardButton('♻️', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -565,7 +580,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if str(grp_id) != str(grpid):
             await query.message.edit("Your Active Connection Has Been Changed. Go To /settings.")
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            return await query.answer('Piracy Is Crime')
 
         if status == "True":
             await save_group_settings(grpid, set_type, False)
@@ -612,7 +627,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
             await query.message.edit_reply_markup(reply_markup)
-    await query.answer('♥️ Thank You LazyDeveloper ♥️')
+    await query.answer('Piracy Is Crime')
 
 
 async def auto_filter(client, msg, spoll=False):
@@ -671,7 +686,7 @@ async def auto_filter(client, msg, spoll=False):
         )
     else:
         btn.append(
-            [InlineKeyboardButton(text="🗓 1/1", callback_data="pages")]
+            [InlineKeyboardButton(text="⚡ 1/1", callback_data="pages")]
         )
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
     TEMPLATE = settings['template']
@@ -708,7 +723,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"Baby, Here is what i found for your query {search}"
+        cap = f"Here is what i found for your query {search}"
     if imdb and imdb.get('poster'):
         try:
             await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
@@ -764,7 +779,7 @@ async def advantage_spell_chok(msg):
     movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
-        k = await msg.reply("Hey Sona! Mujhe is naam se koi movie nhi mili, Mujhe lgta hai ki aapne spelling galat likh dii h 🤷‍♀️!\nPlease check your spelling once again 🤦‍♀️... or \n Discuss your problem with our admin here 👉 @discussion_groupp ")
+        k = await msg.reply("I couldn't find anything related to that. Check your spelling")
         await asyncio.sleep(8)
         await k.delete()
         return
@@ -776,7 +791,7 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("Hey Sona! Mujhe is naam se koi movie nhi mili, Mujhe lgta hai ki aapne spelling galat likh dii h 🤷‍♀️!\nPlease check your spelling once again 🤦‍♀️... or \n Discuss your problem with our admin here 👉 @discussion_groupp ",
+    await msg.reply("I couldn't find anything related to that\nDid you mean any one of these?",
                     reply_markup=InlineKeyboardMarkup(btn))
 
 
@@ -797,7 +812,11 @@ async def manual_filters(client, message, text=False):
                 try:
                     if fileid == "None":
                         if btn == "[]":
-                            await client.send_message(group_id, reply_text, disable_web_page_preview=True)
+                            await client.send_message(
+                                group_id, 
+                                reply_text, 
+                                disable_web_page_preview=True,
+                                reply_to_message_id=reply_id)
                         else:
                             button = eval(btn)
                             await client.send_message(
@@ -827,3 +846,6 @@ async def manual_filters(client, message, text=False):
                 break
     else:
         return False
+    
+
+
